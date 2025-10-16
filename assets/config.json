@@ -1,0 +1,48 @@
+{
+  "example": ["m/m_in_pos.2_v1 - Beispiel1.mp4", "w/w_in_pos.2_v1 - Beispiel1.mp4"],
+  "men": [
+            "m/m_in_pos.2_v1.mp4",
+            "m/m_in_pos.2_v2.mp4",
+			      "m/m_in_pos.2_v3.mp4",
+            "m/m_in_pos.2_v4.mp4",
+            "m/m_in_pos.3_v1.mp4",
+            "m/m_in_pos.3_v2.mp4",
+            "m/m_in_pos.3_v3.mp4",
+            "m/m_in_pos.3_v4.mp4",
+            "m/m_in_pos.4_v1.mp4",
+            "m/m_in_pos.4_v2.mp4",
+            "m/m_in_pos.4_v3.mp4",
+            "m/m_in_pos.4_v4.mp4",
+            "m/m_out_pos.2_v1.mp4",
+            "m/m_out_pos.2_v2.mp4",
+            "m/m_out_pos.2_v3.mp4",
+            "m/m_out_pos.2_v4.mp4",
+            "m/m_out_pos.4_v1.mp4",
+            "m/m_out_pos.4_v2.mp4",
+            "m/m_out_pos.4_v3.mp4",
+            "m/m_out_pos.4_v4.mp4"
+            
+  ],
+  "women": [
+            "w/w_in_pos.2_v1.mp4",
+            "w/w_in_pos.2_v2.mp4",
+            "w/w_in_pos.2_v3.mp4",            
+            "w/w_in_pos.2_v4.mp4",
+            "w/w_in_pos.3_v1.mp4",
+            "w/w_in_pos.3_v2.mp4",
+            "w/w_in_pos.3_v3.mp4",
+            "w/w_in_pos.3_v4.mp4",
+            "w/w_in_pos.4_v1.mp4",
+            "w/w_in_pos.4_v2.mp4",
+            "w/w_in_pos.4_v3.mp4",
+            "w/w_in_pos.4_v4.mp4",
+            "w/w_out_pos.2_v1.mp4",
+            "w/w_out_pos.2_v2.mp4",
+            "w/w_out_pos.2_v3.mp4",
+            "w/w_out_pos.2_v4.mp4",
+            "w/w_out_pos.4_v1.mp4",
+            "w/w_out_pos.4_v2.mp4",
+            "w/w_out_pos.4_v3.mp4",
+            "w/w_out_pos.4_v4.mp4"
+  ]
+}

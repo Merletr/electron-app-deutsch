@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Welcome to the Study</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .hidden {
+        display: none;
+      }
+      #testCanvas {
+        border: 1px solid #000;
+        background-color: grey;
+        width: 90%;
+        height: 90%;
+      }
+      #videoContainer {
+        width: 100%;
+        text-align: center;
+        height: calc(100vh - 40px); /* leave some margin */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Welcome screen -->
+    <div id="welcome">
+      <h2>„Sozio-demografische und sportliche Einflussfaktoren kognitiver Entscheidungsprozesse im Volleyball am Beispiel der Antizipation des Zuspiels"</h2>
+      <p>Sehr geehrte*r Teilnehmer*in, <br />
+      vielen Dank, dass Sie sich entschieden haben an diesem Experiment teilzunehmen. Das Experiment findet im Rahmen meiner Masterarbeit mit dem Titel 
+      <em></em>„Sozio-demografische und sportliche Einflussfaktoren kognitiver Entscheidungsprozesse im Volleyball am Beispiel der Antizipation des Zuspiels,”  
+      die ich am Institut für Sportwissenschaft der Uni Tübingen schreibe, statt.
+      </p>
+      <h3>Zweck der Experiments</h3>
+      <p>Das Ziel der Masterarbeit ist es, einen Überblick zu erhalten, welche sozio-demografischen und sportlichen Merkmale einen Einfluss auf die Antizipationsfähigkeit im Volleyball, konkret auf die Antizipation des Zuspiels, haben können. Die Daten werden anonym erhoben
+        und ausgewertet.
+      </p>
+      <h3>Dauer des Experiments</h3>
+      <p>Der Zeitaufwand für das Experiment beträgt ca. 15 Minuten. Die Umfrage
+        kann bis zum 31.12.2025 ausgefüllt werden.
+      </p>
+      <h3>Rückfragen </h3>
+      <p> Sollten Sie weitere Fragen zur Erhebung oder Auswertung der Daten sowie der Umfrage
+        haben, können Sie sich jederzeit per Mail melden: maik.trautmann@uni-tuebingen.de.
+      </p>
+      <p>
+        Die nachträgliche Löschung Ihrer Daten kann nur mit Verweis auf den Probandencode erfolgen.
+      </p>
+      <h3>Datenschutzhinweis </h3>
+      <p>Die Teilnahme an diesem Experiment ist freiwillig. Die erhobenen Daten aus dem Experiment und der darin beinhalteten Fragebogens werden anonymisiert erhoben und ausgewertet. 
+        Die Umfrage findet im Rahmen der oben genannten Masterarbeit statt und die Daten werden ausschließlich zu diesem Zweck ausgewertet.
+      <br /><br />
+      Mit Setzen des Häkchens stimmen Sie der Teilnahme sowie dieser Einverständniserklärung zu.
+
+      </p>
+      <form id="consentForm">
+        <label>
+          <input type="checkbox" id="dataProtectionConsentWelcome" required />
+          Ich stimme der Datenschutzerklärung zu.
+        </label>
+        <br /><br />
+        <h3>Ablauf:</h3>
+        <p>
+          Das Experiment besteht aus zwei Teilen, die beide vollständig bearbeitet werden müssen:
+          <br />
+          (A) einen Fragebogen
+          <br />
+          (B) das eigentliche Experiment
+        </p>
+        <p>
+        Vielen Dank für Ihre Teilnahme und Unterstützung meines Forschungsprojekts.
+        <br /><br />
+        Mit freundlichen Grüßen,
+        <br />
+        Maik Trautmann
+        </p>
+        <button type="submit">agree</button>
+      </form>
+    </div>
+
+    <!-- Questions screen -->
+    <div id="questions" class="hidden">
+      <h2>(A) Fragebogen</h2>
+      <p>Füllen Sie zunächst den Fragebogen wahrheitsgemäß aus. </p>
+      <form id="questionForm">
+        <!-- Probandencode -->
+        <label for="code">Probandencode erstellen oder zuweisen (erster Buchstabe Vorname Mutter, erster Buchstabe Vorname Vater, 
+          dritter Buchstabe Nachname, erster Buchstabe Geburtsort, Tag des Geburtsdatums als Doppelzahl)
+        </label><br />
+        <input type="text" id="code" name="code" required />
+        <br /><br />
+
+        <!-- Spielerbereich -->
+        <label>Bist du als Spieler*in im männlichen oder weibliche Bereich aktiv?  </label><br />
+        <input type="radio" name="bereich" value="maennlich" required /> Männlich<br />
+        <input type="radio" name="bereich" value="weiblich" required /> Weiblich<br /><br />
+
+        <!-- Alter -->
+        <label for="age">Wie alt bist du? </label><br />
+        <input type="number" id="age" name="age" required />
+        <br /><br />
+
+        <!-- Volleyball Jahre -->
+        <label for="years">Wie viele Jahre spielst du bereits Volleyball? </label><br />
+        <input type="number" id="years" name="years" required />
+        <br /><br />
+
+        <!-- Position -->
+        <label for="position">Welche Position spielst du am häufigsten? </label><br />
+        <select id="position" name="position" required>
+          <option value="">Bitte auswählen</option>
+          <option value="Aussen/Annahme">Außen/Annahme</option>
+          <option value="Zuspiel">Zuspiel</option>
+          <option value="Mittelblock">Mittelblock</option>
+          <option value="Diagonal">Diagonal</option>
+          <option value="Libero">Libero</option>
+        </select>
+        <br /><br />
+
+        <!-- Aktuelle Liga -->
+        <label for="currentLeague">In welcher Liga spielt dein Team aktuell? </label><br />
+        <input type="text" id="currentLeague" name="currentLeague" required />
+        <br /><br />
+
+        <!-- Startaufstellung aktuell -->
+        <label></label> Gehörst du in deinem aktuellen Team zur Startaufstellung? <br />
+        <input type="radio" name="starterNow" value="Ja" required /> Ja<br />
+        <input type="radio" name="starterNow" value="Nein" required /> Nein<br /><br />
+
+        <!-- Höchste Liga -->
+        <label for="highestLeague">Was ist die höchste Liga, in der du fester Bestandteil des Kaders warst?</label><br />
+        <input type="text" id="highestLeague" name="highestLeague" required />
+        <br /><br />
+
+        <!-- Startaufstellung damals -->
+        <label> </label> Gehörtest du in deinem damaligen Team zur Startaufstellung? <br />
+        <input type="radio" name="starterPast" value="Ja" required /> Ja<br />
+        <input type="radio" name="starterPast" value="Nein" required /> Nein<br /><br />
+
+        <!-- Stunden pro Woche -->
+        <label for="hours">•	Wie viele Stunden verbringst du durchschnittlich mit Volleyball pro Woche?  </label><br />
+        <input type="number" id="hours" name="hours" required />
+        <br /><br />
+
+        <!-- Häufigkeit Spiele schauen -->
+        <label for="watchFrequency"> •	Wie häufig schaust du dir Spiele im Fernsehen oder per Streamingdienst an?  </label><br />
+        <select id="watchFrequency" name="watchFrequency" required>
+          <option value="">Bitte auswählen</option>
+          <option value="nie">Nie</option>
+          <option value="selten">Selten</option>
+          <option value="manchmal">Manchmal</option>
+          <option value="oft">Oft</option>
+          <option value="sehr oft">Sehr oft</option>
+        </select>
+        <br /><br />
+
+        <button type="submit">absenden</button>
+      </form>
+    </div>
+
+    <!-- After submission screen -->
+    <div id="afterSubmit" class="hidden">
+      <h2>Danke!</h2>
+      <p>Deine Antworten wurden erfolgreich gespeichert.</p>
+      <button type="submit" id="goToExplanationButton">Weiter</button>
+    </div>
+
+    <!-- Explanation screen -->
+    <div id="explanationScreen" class="hidden">
+      <h2>(B) Das Experiment:</h2>
+      <p>
+        Sehr geehrte*r Teilnehmer*in,
+        <br />
+        bitte lesen Sie die Versuchsanleitung vollständig durch bevor Sie das Experiment beginnen.
+      </p>
+      <h3>Ablauf:</h3>
+      <p>
+        Füllen Sie zunächst den Fragebogen wahrheitsgemäß aus. Nach dem Fragebogen werden Ihnen zwei Beispielvideos zu Übungszwecken gezeigt. Erst danach beginnt das richtige Experiment. 
+        Schließen Sie die App erst, wenn Sie dazu aufgefordert werden!
+        Das letzte Video kann unter Umständen nach Ihrem Klick für einige Sekunden einfrieren. Das ist nicht schlimm, bitte auf keinen Fall die App schließen, da ansonsten die Ergebnisse nicht gespeichert werden.
+      </p>
+      <h3>Das Experiment:</h3>
+      <p>
+       Ihnen werden zwei Blöcke von Videosequenzen aus den Spielen der deutschen Nationalmannschaften bei der Volleyball Nations League 2025 gezeigt. Ein Block enthält Videos der Frauen-Nationalmannschaft und ein Block Videos der Männer-Nationalmannschaft. Die Videosequenzen umfassen den gegnerischen Aufschlag bis hin zum Ballkontakt des Zuspielers. 
+       Ihre Aufgabe besteht darin durch Drücken der Pfeiltasten ihrer Tastatur vorherzusagen zu welcher Angriffsposition der Ball zugespielt wird. </p>
+      <p>
+        <ul>
+          <li>Position 4 = Pfeil nach links ←</li>
+          <li>Position 3 = Pfeil nach oben ↑</li>
+          <li>Position 2 = Pfeil nach rechts →</li>
+        </ul>
+      </p>
+      <p>
+        Durch Drücken einer der drei Pfeiltasten wird ihre Antwort gespeichert und nach kurzer Pufferzeit die nächste Videosequenz gestartet. Zwischen den beiden Blöcken können Sie eine kurze Pause einlegen und durch Drücken einer Taste den zweiten Block starten. 
+        Bitte schließen Sie die App erst nach Abschluss des zweiten Blocks (wenn Sie dazu aufgefordert werden)!
+      </p>
+      <h3>Datenerfassung:</h3>
+      <p>
+       Gemessen wird dabei ob die getroffene Entscheidung korrekt ist und wie schnell die Taste gedrückt wurde. Die Daten werden mit Abschluss des Experiments über den von Ihnen erstellten Probandencode anonym gespeichert und ausgewertet.
+      </p>
+      <button id="startStudyButton">start</button>
+    </div>
+
+    <!-- Study screen -->
+    <div id="studyScreen" class="hidden">
+      <div id="videoContainer">
+        <canvas id="testCanvas"></canvas>
+      </div>
+    </div>
+
+    <script>
+      // Global variables to store user data
+      let userData = {
+        code: '',
+        bereich: '',
+        age: '',
+        years: '',
+        position: '',
+        currentLeague: '',
+        starterNow: '',
+        highestLeague: '',
+        starterPast: '',
+        hours: '',
+        watchFrequency: ''
+      };
+
+      // Global reference to reaction test instance
+      let reactionTest = null;
+
+      // Wait for both DOM and electron to be ready
+      function initializeApp() {
+        console.log('Initializing app...');
+        console.log('window.electron:', window.electron);
+        console.log('typeof window.electron:', typeof window.electron);
+        
+        // Check if electron APIs are available
+        if (!window.electron) {
+          console.error('Electron APIs not available!');
+          console.log('Available window properties:', Object.keys(window));
+          
+          // Try waiting a bit longer and retry
+          setTimeout(() => {
+            console.log('Retrying after delay...');
+            console.log('window.electron after delay:', window.electron);
+            if (window.electron) {
+              initializeApp();
+            } else {
+              alert('Error: Electron APIs not available. Please restart the application.');
+            }
+          }, 1000);
+          return;
+        }
+        
+        console.log('Electron APIs available, setting up event listeners...');
+        
+        // Welcome screen - Next button
+        const consentForm= document.getElementById('consentForm');
+        if (consentForm) {
+          consentForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            try {
+              document.getElementById('welcome').classList.add('hidden');
+              document.getElementById('questions').classList.remove('hidden');
+              console.log('Switched to questions screen');
+            } catch (error) {
+              console.error('Error switching screens:', error);
+            }
+          });
+          console.log('Next button event listener added');
+        } else {
+          console.error('Next button not found!');
+        }
+
+        // Question form submission
+        const questionForm = document.getElementById('questionForm');
+        if (questionForm) {
+          questionForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            console.log('Form submitted');
+
+            try {
+              const code = document.getElementById('code').value;
+              const bereichElement = document.querySelector('input[name="bereich"]:checked');
+              const age = document.getElementById('age').value;
+              const years = document.getElementById('years').value;
+              const position = document.getElementById('position').value;
+              const currentLeague = document.getElementById('currentLeague').value;
+              const starterNowElement = document.querySelector('input[name="starterNow"]:checked');
+              const highestLeague = document.getElementById('highestLeague').value;
+              const starterPastElement = document.querySelector('input[name="starterPast"]:checked');
+              const hours = document.getElementById('hours').value;
+              const watchFrequency = document.getElementById('watchFrequency').value;
+
+              if (!bereichElement || !starterNowElement || !starterPastElement) {
+                alert('Bitte alle Pflichtfelder ausfüllen.');
+                return;
+              }
+
+              const bereich = bereichElement.value;
+              const starterNow = starterNowElement.value;
+              const starterPast = starterPastElement.value;
+
+              console.log('Form data:', {
+                code, bereich, age, years, position,
+                currentLeague, starterNow, highestLeague,
+                starterPast, hours, watchFrequency
+              });
+
+              // Store user data globally
+              userData = {
+                code,
+                bereich,
+                age,
+                years,
+                position,
+                currentLeague,
+                starterNow,
+                highestLeague,
+                starterPast,
+                hours,
+                watchFrequency
+              };
+              document.getElementById('questions').classList.add('hidden');
+              document.getElementById('afterSubmit').classList.remove('hidden');
+            } catch (err) {
+              console.error('Error in form submission:', err);
+              alert('Unexpected error: ' + err.message);
+            }
+          });
+        }
+
+        // After submit → go to explanation
+        const goToExplanationButton = document.getElementById('goToExplanationButton');
+        if (goToExplanationButton) {
+          goToExplanationButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            document.getElementById('afterSubmit').classList.add('hidden');
+            document.getElementById('explanationScreen').classList.remove('hidden');
+          });
+        }
+
+        // Start study button
+        const startStudyButton = document.getElementById('startStudyButton');
+        if (startStudyButton) {
+          startStudyButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            // Hide explanation and show study screen
+            document.getElementById('explanationScreen').classList.add('hidden');
+            document.getElementById('studyScreen').classList.remove('hidden');
+
+            // Initialize canvas size before starting test
+            resizeCanvas();
+
+            // Start the reaction test
+            startReactionTest();
+          });
+        }
+        
+        console.log('All event listeners set up');
+      }
+
+      // Initialize when DOM is ready
+      document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOM loaded, initializing...');
+        
+        // Try immediately first
+        if (window.electron) {
+          console.log('Electron APIs available immediately');
+          initializeApp();
+        } else {
+          console.log('Electron APIs not ready, waiting...');
+          // Small delay to ensure preload script is fully loaded
+          setTimeout(() => {
+            initializeApp();
+          }, 100);
+        }
+      });
+
+      async function startReactionTest() {
+        try {
+          console.log('Starting reaction test...');
+          
+          // Check if resolveAssetPath is available
+          if (!window.electron.resolveAssetPath) {
+            throw new Error('resolveAssetPath function not available');
+          }
+          
+          // Load the test configuration
+          const configPath = window.electron.resolveAssetPath("config.json");
+          console.log('Config path:', configPath);
+          
+          const configResponse = await fetch(configPath);
+          if (!configResponse.ok) {
+            throw new Error(`Failed to load config: ${configResponse.status} ${configResponse.statusText}`);
+          }
+          const testCases = await configResponse.json();
+          console.log('Test cases loaded:', testCases);
+
+          // Create and run the reaction test
+          reactionTest = new ReactionTest(testCases);
+          const startWithMen = Math.random() < 0.5;
+          reactionTest.gender = startWithMen ? Gender.MALE : Gender.FEMALE;
+          reactionTest.userData = userData;
+          
+          await reactionTest.runTest();
+        } catch (error) {
+          console.error('Error starting reaction test:', error);
+          alert('Error starting the test: ' + error.message);
+        }
+      }
+
+      // Include your ReactionTest class here
+      const Gender = Object.freeze({ MALE: 0, FEMALE: 1 });
+      const TestChoice = Object.freeze({ LEFT: "LEFT", MIDDLE: "MIDDLE", RIGHT: "RIGHT" });
+
+      const MAP_SCANCODE_CHOICE = {
+        'ArrowLeft': TestChoice.LEFT,
+        'ArrowUp': TestChoice.MIDDLE,
+        'ArrowRight': TestChoice.RIGHT,
+      };
+
+      class ReactionTest {
+        constructor(testCases) {
+          this.testCases = testCases;
+          this.userData = {};
+          this._fps = 60;
+
+          this.canvas = document.getElementById('testCanvas');
+          this.ctx = this.canvas.getContext('2d');
+
+          // Ensure canvas is properly sized
+          this.ensureCanvasSize();
+
+          this.videoElement = document.createElement('video');
+          this.videoElement.muted = true;
+          this.videoElement.controls = false;
+          this.videoElement.autoplay = true;
+          this.videoElement.preload = 'auto';
+          
+          // Add video element to DOM (hidden) to ensure proper loading
+          this.videoElement.style.display = 'none';
+          document.body.appendChild(this.videoElement);
+
+          // Create audio element for beep
+          this.beepAudio = new Audio(window.electron.resolveAssetPath("sounds/beep.mp3"));
+
+          this._running = true;
+          this.allResults = []; // Store all test results
+        }
+
+        ensureCanvasSize() {
+          // Make sure canvas has proper dimensions
+          if (this.canvas.clientWidth > 0 && this.canvas.clientHeight > 0) {
+            this.canvas.width = this.canvas.clientWidth;
+            this.canvas.height = this.canvas.clientHeight;
+          }
+        }
+
+        // Function to shuffle an array
+        shuffleArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+          }
+        }
+
+        async runTest() {
+          console.log('Starting reaction test for:', this.userName);
+          console.log('Test starts with gender:', this.gender);
+          
+          try {
+            let firstIntro, firstCases, secondIntro, secondCases;
+
+            if (this.gender === Gender.MALE) {
+              firstIntro = this.testCases.example || [];
+              firstCases = this.testCases.men || [];
+              secondCases = this.testCases.women || [];
+            } else {
+              firstIntro = this.testCases.example || [];
+              firstCases = this.testCases.women || [];
+              secondCases = this.testCases.men || [];
+            }
+
+            // Shuffle the test cases
+            this.shuffleArray(firstCases);
+            this.shuffleArray(secondCases);
+
+            await this.runIntroduction(firstIntro);
+            await this._showInfo("Erster Teil: \nWenn Sie bereit sind, drücken Sie die Leertaste, um den ersten Teil der Studie zu starten.");
+
+            // Run first set of test cases
+            for (let i = 0; i < firstCases.length; i++) {
+              const videoPath = firstCases[i];
+              await this._blackScreen(1); // 1 second black screen
+              const { reactionTime, choice } = await this._videoReactionTime(window.electron.resolveAssetPath(videoPath), 3);
+              
+              // Store result with user info
+              this.allResults.push({
+                ...this.userData,
+                videoPath: videoPath,
+                userChoice: choice,
+                userTime: reactionTime
+              });
+              
+              console.log(`User took ${reactionTime.toFixed(2)}s to choose ${choice} for ${videoPath}`);
+            }
+
+            // Break between test sets
+            //await this._blackScreen(3);
+            //await this.runIntroduction(secondIntro);
+            await this._showInfo("Der erste Teil der Studie wurde erfolgreich abgeschlossen.\nZweiter Teil: \nWenn Sie bereit sind, drücken Sie die Leertaste, um den zweiten Teil der Studie zu starten.");
+
+            // Run second set of test cases
+            for (let i = 0; i < secondCases.length; i++) {
+              const videoPath = secondCases[i];
+              await this._blackScreen(1);
+              const { reactionTime, choice } = await this._videoReactionTime(window.electron.resolveAssetPath(videoPath), 3);
+              
+              // Store result with user info
+              this.allResults.push({
+                ...this.userData,
+                videoPath: videoPath,
+                userChoice: choice,
+                userTime: reactionTime
+              });
+              
+              console.log(`User took ${reactionTime.toFixed(2)}s to choose ${choice} for ${videoPath}`);
+            }
+
+            // Save all results
+            await this._writeResults();
+            await this._showInfo("Test beendet! \nDanke für Ihre Teilnahme. Sie können die App jetzt schließen.");
+
+          } catch (error) {
+            console.error('Error during test:', error);
+            await this._showInfo("An error occurred during the test. Please contact the researcher.");
+            throw error; // Re-throw to be caught by startReactionTest
+          }
+        }
+
+        async runIntroduction(vidList) {
+          await this._showInfo("Einführung: \nIn diesen Videos lernen Sie den Prozess \nund üben das \"Klicken\".\nDrücken Sie die Leertaste, um die beiden \nDemonstrationsvideos zu starten.");
+
+          console.log('Starting introduction with videos:', vidList);
+          
+          for (let i = 0; i < vidList.length; i++) {
+            const videoPath = vidList[i];
+            console.log(`Playing introduction video ${i + 1}/${vidList.length}:`, videoPath);
+            await this._blackScreen(1);
+            try {
+              await this._videoReactionTime(window.electron.resolveAssetPath(videoPath), 3);
+            } catch (error) {
+              console.error(`Error playing introduction video ${videoPath}:`, error);
+              // Continue with next video even if one fails
+            }
+          }
+          
+          console.log('Introduction completed');
+        }
+
+        async _writeResults() {
+          console.log("Writing results for", this.allResults.length, "test cases");
+          
+          try {
+            // Send results to main process for CSV writing
+            const result = await window.electron.saveTestResults(this.allResults);
+            if (!result.success) {
+              console.error('Error saving test results:', result.message);
+            }
+          } catch (error) {
+            console.error('Error saving test results:', error);
+          }
+        }
+
+        async _showInfo(msg, waitSeconds = null) {
+          this.ensureCanvasSize();
+          this._clearCanvas();
+          this._drawText(msg);
+
+          if (waitSeconds !== null) {
+            await this._countDown(waitSeconds);
+          } else {
+            await this._waitForAnyKey();
+          }
+        }
+
+        async _blackScreen(seconds) {
+          this.ensureCanvasSize();
+          this._clearCanvas('black');
+          await this._countDown(seconds);
+        }
+
+        _clearCanvas(color = 'grey') {
+          this.ensureCanvasSize();
+          this.ctx.fillStyle = color;
+          this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+
+        _drawText(text, x = null, y = null) {
+          //this.ensureCanvasSize();
+          this.ctx.fillStyle = 'white';
+          this.ctx.font = '20px Arial';
+          this.ctx.textAlign = 'center';
+          this.ctx.textBaseline = 'middle';
+          
+          // Center the text if no coordinates provided
+          if (x === null || y === null) {
+            x = this.canvas.width / 2;
+            y = this.canvas.height / 2;
+          }
+          
+          // Handle multiline text
+          const lines = text.split('\n');
+          const lineHeight = 30;
+          const startY = y - ((lines.length - 1) * lineHeight) / 2;
+          
+          lines.forEach((line, index) => {
+            this.ctx.fillText(line, x, startY + (index * lineHeight));
+          });
+        }
+
+        _countDown(seconds) {
+          return new Promise((resolve) => {
+            setTimeout(resolve, seconds * 1000);
+          });
+        }
+
+        _waitForAnyKey() {
+          return new Promise((resolve) => {
+            const onKey = (e) => {
+              if (e.code === "Space") { // Nur wenn Leertaste gedrückt wurde
+                window.removeEventListener('keydown', onKey);
+                resolve();
+              }
+            };
+            window.addEventListener('keydown', onKey);
+          });
+        }
+
+
+        _videoReactionTime(videoPath, initTime) {
+          return new Promise((resolve, reject) => {
+            console.log('Loading video:', videoPath);
+            
+            // Clear canvas first and show loading message
+            this.ensureCanvasSize();
+            this._clearCanvas('black');
+            this._drawText('Achtung...');
+            
+            // Reset video element
+            this.videoElement.currentTime = 0;
+            this.videoElement.src = videoPath;
+            this.videoElement.load();
+            
+            let hasResolved = false;
+            
+            const cleanup = () => {
+              this.videoElement.removeEventListener('error', onError);
+              this.videoElement.removeEventListener('loadeddata', onLoadedData);
+              this.videoElement.removeEventListener('canplaythrough', onCanPlayThrough);
+            };
+            
+            const onError = (e) => {
+              cleanup();
+              if (!hasResolved) {
+                hasResolved = true;
+                console.error('Video error:', e, 'for path:', videoPath);
+                this._clearCanvas();
+                this._drawText('Error loading video: ' + videoPath);
+                // Return default values instead of rejecting
+                setTimeout(() => resolve({ reactionTime: 0, choice: TestChoice.LEFT }), 2000);
+              }
+            };
+            
+            const onCanPlayThrough = () => {
+              cleanup();
+              if (!hasResolved) {
+                console.log('Video ready to play:', videoPath);
+
+                // Keep black screen and show loading text while beep plays
+                this._clearCanvas('black');
+                this._drawText('Achtung...');
+
+                // First play beep
+                if (this.beepAudio) {
+                  this.beepAudio.currentTime = 0;
+                  this.beepAudio.play()
+                    .then(() => {
+                      console.log("Beep started");
+                      // Wait until beep finishes, then start video
+                      this.beepAudio.onended = () => {
+                        console.log("Beep finished, starting video");
+
+                        this.videoElement.play().then(() => {
+                          console.log('Video started playing');
+                          this._startVideoRendering();
+
+                          // Start reaction timer after initTime delay
+                          this._startReactionTimer(resolve);
+                        }).catch(e => {
+                          if (!hasResolved) {
+                            hasResolved = true;
+                            console.error('Error playing video:', e);
+                            this._clearCanvas('black');
+                            this._drawText('Error playing video');
+                            setTimeout(() => resolve({ reactionTime: 0, choice: TestChoice.LEFT }), 2000);
+                          }
+                        });
+                      };
+                    })
+                    .catch(e => {
+                      console.log('Could not play beep sound:', e);
+                      // fallback → start video directly
+                      this.videoElement.play().then(() => {
+                        this._startVideoRendering();
+                        this._startReactionTimer(resolve);
+                      });
+                    });
+                } else {
+                  // No beep audio, start video directly
+                  this.videoElement.play().then(() => {
+                    this._startVideoRendering();
+                    this._startReactionTimer(resolve);
+                  });
+                }
+              }
+            };
+
+            
+            const onLoadedData = () => {
+              // Don't resolve here, wait for canplaythrough
+              console.log('Video data loaded:', videoPath);
+            };
+            
+            this.videoElement.addEventListener('error', onError);
+            this.videoElement.addEventListener('loadeddata', onLoadedData);
+            this.videoElement.addEventListener('canplaythrough', onCanPlayThrough);
+          });
+        }
+
+        _startVideoRendering() {
+          this.ensureCanvasSize();
+         // Create a rendering loop to continuously draw video frames
+          const renderFrame = () => {
+            if (!this.videoElement.paused && !this.videoElement.ended) {
+              this._drawVideoFrame();
+              requestAnimationFrame(renderFrame);
+            }
+          };
+          renderFrame();
+        }
+
+        _drawVideoFrame() {
+          if (this.videoElement.readyState >= 2) {
+            this.ensureCanvasSize();
+            
+            // Clear canvas first
+            this._clearCanvas('black');
+            
+            // Calculate video dimensions to fit in canvas while maintaining aspect ratio
+            const videoAspect = this.videoElement.videoWidth / this.videoElement.videoHeight;
+            const canvasAspect = this.canvas.width / this.canvas.height;
+            
+            let drawWidth, drawHeight, x, y;
+            
+            if (videoAspect > canvasAspect) {
+              // Video is wider than canvas
+              drawWidth = this.canvas.width;
+              drawHeight = this.canvas.width / videoAspect;
+              x = 0;
+              y = (this.canvas.height - drawHeight) / 2;
+            } else {
+              // Video is taller than canvas
+              drawWidth = this.canvas.height * videoAspect;
+              drawHeight = this.canvas.height;
+              x = (this.canvas.width - drawWidth) / 2;
+              y = 0;
+            }
+            
+            this.ctx.drawImage(this.videoElement, x, y, drawWidth, drawHeight);
+          }
+        }
+
+        _startReactionTimer(resolve) {
+          const startTime = performance.now();
+          let hasResolved = false;
+
+          const onKeyDown = (e) => {
+            if (MAP_SCANCODE_CHOICE[e.code] && !hasResolved) {
+              hasResolved = true;
+              const reactionTime = (performance.now() - startTime) / 1000;
+              window.removeEventListener('keydown', onKeyDown);
+              this.videoElement.pause();
+              resolve({ reactionTime, choice: MAP_SCANCODE_CHOICE[e.code] });
+            }
+          };
+
+          window.addEventListener('keydown', onKeyDown);
+        }
+      }
+
+      function resizeCanvas() {
+        const canvas = document.getElementById("testCanvas");
+        if (!canvas) return;
+        
+        // Only resize if canvas has actual dimensions
+        if (canvas.clientWidth > 0 && canvas.clientHeight > 0) {
+          const wasPlaying = reactionTest?.videoElement && !reactionTest.videoElement.paused;
+          
+          canvas.width = canvas.clientWidth;
+          canvas.height = canvas.clientHeight;
+
+          // If a video is currently playing, just redraw the current frame without interrupting
+          if (wasPlaying && reactionTest) {
+            // Don't call _drawVideoFrame directly as it clears with grey
+            // Instead just redraw the video frame on black background
+            if (reactionTest.videoElement.readyState >= 2) {
+              const ctx = canvas.getContext('2d');
+              ctx.fillStyle = 'black';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              
+              // Calculate video dimensions to fit in canvas while maintaining aspect ratio
+              const videoAspect = reactionTest.videoElement.videoWidth / reactionTest.videoElement.videoHeight;
+              const canvasAspect = canvas.width / canvas.height;
+              
+              let drawWidth, drawHeight, x, y;
+              
+              if (videoAspect > canvasAspect) {
+                // Video is wider than canvas
+                drawWidth = canvas.width;
+                drawHeight = canvas.width / videoAspect;
+                x = 0;
+                y = (canvas.height - drawHeight) / 2;
+              } else {
+                // Video is taller than canvas
+                drawWidth = canvas.height * videoAspect;
+                drawHeight = canvas.height;
+                x = (canvas.width - drawWidth) / 2;
+                y = 0;
+              }
+              
+              ctx.drawImage(reactionTest.videoElement, x, y, drawWidth, drawHeight);
+            }
+          }
+        }
+      }
+
+      // Run once at load
+      window.addEventListener("DOMContentLoaded", resizeCanvas);
+
+      // Re-run whenever window is resized
+      window.addEventListener("resize", resizeCanvas);
+
+    </script>
+  </body>
+</html>
