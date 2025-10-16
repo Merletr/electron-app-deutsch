@@ -1,1 +1,1 @@
-Englisch version of the app
+Deutsche Version der App
